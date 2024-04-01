@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Lab 2 - Liza Dolhova</title>
+    <script language="JavaScript" type="text/javascript">
+        function loadXMLDoc() {
+            // Load data from XML file
+            xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "data.xml", false);
+            xhttp.send();
+            // Parse data to correct format
+            const parser = new DOMParser();
+            return parser.parseFromString(xhttp.responseText, "text/xml");;
+        }
+        function searchXML() {
+            xmlDoc = loadXMLDoc();
+            // Find all date elements
+            x = xmlDoc.getElementsByTagName("date");
+            // Get data from input
+            input = document.querySelector("input").value;
+            // Check that input is not empty
+            if (input == null || input == "") {
+                document.getElementById("results").innerHTML = "Please enter a character or name!";
+                return false;
+            }
+            // Start creating a table for results
+            let divText = "<h2>The available meeetings for this date are as follows:</h2><br /><table border=1><tr><th>Person</th><th>Date</th><th>Time</th><th>Place</th>";
+            // Iterate through found dates
+            for (i = 0; i < x.length; i++) {
+                // Cheeck that date equals input
+                if (x[i].childNodes[0].nodeValue.toLowerCase() == input.toLowerCase()) {
+                    const selectedData = {};
+                    // Select all needed data for the table from XML
+                    ["person", "date", "time", "place"].forEach(el => selectedData[el] = xmlDoc.getElementsByTagName(el)[i].childNodes[0].nodeValue);
+                    // Build table from received data
+                    divText += `<tr>`;
+                    Object.keys(selectedData).forEach((key) => divText += `<td>${selectedData[key]}</td>`);
+                    divText += `</tr>`;
+                }
+            }
+            // Finish table
+            divText += "</table>";
+            // Add table to the page
+            document.getElementById("results").innerHTML = divText;
+
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        Date: <input type="text" name="date" id="searchme">
+    </div>
+    <br />
+    <input type="submit" value="Search" onClick="searchXML(); return false;">
+    <p id="results"></p>
+</body>
+
+</html>

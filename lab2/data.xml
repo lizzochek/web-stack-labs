@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE data>
+<data>
+    <meeting>
+        <person>John Doe</person>
+        <date>03.04.2024</date>
+        <time>12:00</time>
+        <place>Meeting Room 1A</place>
+    </meeting>
+    <meeting>
+        <person>Jane Smith</person>
+        <date>17.06.2023</date>
+        <time>11:00</time>
+        <place>Online via Zoom</place>
+    </meeting>
+    <meeting>
+        <person>Anna May</person>
+        <date>03.04.2024</date>
+        <time>11:00</time>
+        <place>Meeeting Room 1B</place>
+    </meeting>
+</data>
